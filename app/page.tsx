@@ -18,10 +18,12 @@ export default function TrafficAnalyzer() {
 
     setLoading(true);
     try {
-      const res = await fetch("https://counting-traffic.onrender.com/process_video", {
+      const response = await fetch("https://counting-traffic.onrender.com/process_video", {
         method: "POST",
         body: formData,
+        mode: "cors", // 🟢 Ensure CORS mode is set
       });
+
 
       if (!res.ok) throw new Error("Processing failed.");
 
