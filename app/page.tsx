@@ -27,7 +27,6 @@ export default function TrafficAnalyzer() {
       if (!response.ok) throw new Error("Processing failed.");
 
       const data = await response.json();
-
       setCounts(data.summary || {});
       setProcessedVideoUrl(data.video_url || null);
     } catch (error) {
