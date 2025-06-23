@@ -21,19 +21,15 @@ export default function TrafficAnalyzer() {
       const response = await fetch("https://counting-traffic.onrender.com/process_video", {
         method: "POST",
         body: formData,
-        mode: "cors", // 🟢 Ensure CORS mode is set
+        mode: "cors",
       });
-
 
       if (!response.ok) throw new Error("Processing failed.");
 
-      const blob = await response.blob();
-      const videoURL = URL.createObjectURL(blob);
-      setProcessedVideoUrl(videoURL);
+      const data = await response.json();
 
-      // (Optional) setCounts if you extract from headers or another endpoint
-      // Here we'll just reset it for now
-      setCounts({});
+      setCounts(data.summary || {});
+      setProcessedVideoUrl(data.video_url || null);
     } catch (error) {
       console.error(error);
       alert("Upload or processing failed.");
