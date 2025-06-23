@@ -27,7 +27,7 @@ export default function TrafficAnalyzer() {
 
       if (!response.ok) throw new Error("Processing failed.");
 
-      const blob = await res.blob();
+      const blob = await response.blob();
       const videoURL = URL.createObjectURL(blob);
       setProcessedVideoUrl(videoURL);
 
