@@ -18,15 +18,17 @@ export default function TrafficAnalyzer() {
 
     setLoading(true);
     try {
-      const response = await fetch("https://counting-traffic.onrender.com/process_video", {
+      const resp = await fetch("https://counting-traffic.onrender.com/process_video", {
         method: "POST",
         body: formData,
         mode: "cors",
       });
 
-      if (!response.ok) throw new Error("Processing failed.");
+      if (!resp.ok) throw new Error("Processing failed – status " + resp.status);
 
-      const data = await response.json();
+      const data = await resp.json();
+      console.log("✅ API response:", data);
+
       setCounts(data.summary || {});
       setProcessedVideoUrl(data.video_url || null);
     } catch (error) {
@@ -63,14 +65,12 @@ export default function TrafficAnalyzer() {
           <div className="w-6 h-6 bg-white"></div>
           <h1 className="text-xl font-bold">Traffic Analyzer</h1>
         </div>
-
         <div className="flex items-center">
           <nav className="hidden md:flex items-center mr-6">
             <Link href="#" className="px-4 py-2 font-medium">Dashboard</Link>
             <Link href="#" className="px-4 py-2 font-medium">Reports</Link>
             <Link href="#" className="px-4 py-2 font-medium">Settings</Link>
           </nav>
-
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="icon" className="rounded-full">
               <Bell className="h-5 w-5" />
