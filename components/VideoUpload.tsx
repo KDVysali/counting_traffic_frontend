@@ -14,7 +14,7 @@ export default function VideoUpload() {
     formData.append("video", video);
 
     setLoading(true);
-    const response = await fetch("https://counting-traffic.onrender.com/process_video", {
+    const response = await fetch("process.env.NEXT_PUBLIC_API_URL", {
       method: "POST",
       body: formData,
     });
