@@ -13,12 +13,15 @@ export default function TrafficAnalyzer() {
 
   const handleVideoUpload = async () => {
     if (!video) return;
+
     const formData = new FormData();
     formData.append("video", video);
 
     setLoading(true);
     try {
-      const resp = await fetch("https://counting-traffic.onrender.com/process_video", {
+      // 👉 backend base URL comes from env, defined in Railway UI (.env.production)
+      const apiBase = process.env.NEXT_PUBLIC_API_BASE || "";
+      const resp = await fetch(`${apiBase}/process_video`, {
         method: "POST",
         body: formData,
         mode: "cors",
